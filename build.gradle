@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(platform('io.vertx:vertx-dependencies:4.0.0'))
+    implementation('io.vertx:vertx-web')
+    runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClassName = 'io.vertx.core.Launcher'
+}
+
+run {
+    args = ['run', 'io.vertx.reproducer.HttpServerVerticle', "--launcher-class=${application.mainClassName}"]
+}
